@@ -36,6 +36,10 @@ const checkCommand = (bot: Bot, arg: string | undefined): string => {
 };
 
 client.once('ready', () => {
+    client?.user?.setActivity(process.env.BOT_STATUS || 'ANDREW', {
+        type: 'WATCHING',
+        url: 'https://www.twitch.tv/monstercat',
+    });
     console.log('UwU ready to Wiki-Chan');
 });
 
