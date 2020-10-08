@@ -18,7 +18,7 @@ const bot: Bot = {
     PREFIX: '!',
     commands: [
         {
-            name: 'test',
+            name: 'shitpost',
             aliases: ['shit'],
         },
     ],
@@ -43,14 +43,16 @@ client.on('message', (message) => {
     if (!message.content.startsWith(bot.PREFIX)) return;
     const args = message.content.trim().split(/^([^ +]*?)\s* +\s*/);
     if (args.length > 1) args.shift();
-    console.log(args);
     const arg = args.shift()?.substr(1);
     const command = checkCommand(bot, arg);
+
     switch (command) {
-        case `test`:
-            console.log('running');
+        case `shitpost`:
+            message.delete();
             fetchWikiLink((link) => {
-                message.channel.send(link);
+                message.channel.send(link).then((msg) => {
+                    msg.delete({ timeout: 5000 });
+                });
             });
     }
 });
